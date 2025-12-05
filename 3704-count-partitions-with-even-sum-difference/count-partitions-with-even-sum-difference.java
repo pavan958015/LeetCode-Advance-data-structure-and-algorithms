@@ -10,8 +10,8 @@ class Solution {
         int total=prefix[prefix.length-1];
 
         for(int i=0;i<nums.length-1;i++){
-            int left=nums[i];
-            int right=total-nums[i];
+            int left=prefix[i];
+            int right=total-prefix[i];
             if((left-right)%2==0){
                 count++;
             }
