@@ -27,6 +27,7 @@ class Solution {
     int n = triangle.size();
     int dp[][] = new int[n][n];
 
+
     for (int j = 0; j < triangle.get(n - 1).size(); j++) {
         dp[n - 1][j] = triangle.get(n - 1).get(j);
     }
