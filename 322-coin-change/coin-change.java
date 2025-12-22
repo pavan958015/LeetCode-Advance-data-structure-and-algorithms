@@ -25,38 +25,70 @@ class Solution {
     // }
 
 // using Memo 
-static final int INF = (int)1e9;
-    public int coinChange(int[] coins, int amount) {
-        int dp[][]=new int[coins.length][amount+1];
-        for(int i=0;i<coins.length;i++){
-            for(int j=0;j<=amount;j++){
-                dp[i][j]=-1;
-            }
-        }
-        int ans= solve(coins.length-1,coins,amount,dp);
-        return ans>=INF?-1:ans;
-    }
-    public static int solve(int idx,int[] coins,int amount,int [][] dp){
-        // base
-        if(amount==0) return 0;
-        if(idx==0){
-            if(amount%coins[0]==0){
-                return dp[idx][amount]=amount/coins[0];
-            }
-            else{
-                return INF;
-            }
-        }
-        if(dp[idx][amount]!=-1){
-            return dp[idx][amount];
-        }
-        //not take
-        int notTake=solve(idx-1,coins,amount,dp);
-        // take
-        int take=INF;
-        if(coins[idx]<=amount)
-         take=1+solve(idx,coins,amount-coins[idx],dp);
-        return dp[idx][amount]=Math.min(take,notTake);
 
+// static final int INF = (int)1e9;
+//     public int coinChange(int[] coins, int amount) {
+//         int dp[][]=new int[coins.length][amount+1];
+//         for(int i=0;i<coins.length;i++){
+//             for(int j=0;j<=amount;j++){
+//                 dp[i][j]=-1;
+//             }
+//         }
+//         int ans= solve(coins.length-1,coins,amount,dp);
+//         return ans>=INF?-1:ans;
+//     }
+//     public static int solve(int idx,int[] coins,int amount,int [][] dp){
+//         // base
+//         if(amount==0) return 0;
+//         if(idx==0){
+//             if(amount%coins[0]==0){
+//                 return dp[idx][amount]=amount/coins[0];
+//             }
+//             else{
+//                 return INF;
+//             }
+//         }
+//         if(dp[idx][amount]!=-1){
+//             return dp[idx][amount];
+//         }
+//         //not take
+//         int notTake=solve(idx-1,coins,amount,dp);
+//         // take
+//         int take=INF;
+//         if(coins[idx]<=amount)
+//          take=1+solve(idx,coins,amount-coins[idx],dp);
+//         return dp[idx][amount]=Math.min(take,notTake);
+
+//     }
+
+
+// Tabulation
+
+
+    public int coinChange(int coins[],int amount){
+        int n=coins.length;
+        int INF=(int)1e9;
+        int tab[][]=new int[coins.length][amount+1];
+
+        for(int amt=0;amt<=amount;amt++){
+            if(amt%coins[0]==0){
+                tab[0][amt]=amt/coins[0];
+            }else{
+                tab[0][amt]=INF;
+            }
+        }
+        for(int i=1;i<n;i++){
+            for(int amt=0;amt<=amount;amt++){
+            //not take
+            int notTake=tab[i-1][amt];
+            // take
+            int take=INF;
+            if(coins[i]<=amt)
+                take=1+tab[i][amt-coins[i]];
+            tab[i][amt]=Math.min(take,notTake);
+            }
+        }
+        int ans=tab[n-1][amount];
+        return ans>=INF?-1:ans;
     }
 }
