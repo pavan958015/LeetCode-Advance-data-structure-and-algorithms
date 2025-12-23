@@ -57,12 +57,7 @@ class Solution {
                 if(i==0 || j==0){
                     tab[i][j]=0;
                 }
-            }
-        }
-
-        for(int i=1;i<=m;i++){
-            for(int j=1;j<=n;j++){
-                if(s1.charAt(i-1)==s2.charAt(j-1)){
+                 else if(s1.charAt(i-1)==s2.charAt(j-1)){
                     tab[i][j]=tab[i-1][j-1]+1;
                 }else{
                     tab[i][j]=Math.max(tab[i-1][j],tab[i][j-1]);
