@@ -9,7 +9,7 @@ class Solution {
     //     return solve(0,1,prices,dp);
     // }
 
-    
+
     // public static int solve(int idx,int flag,int arr[]){
     //     if(idx>=arr.length) return 0;
 
@@ -50,19 +50,40 @@ class Solution {
 
 
     // tabulation 
+    // public int maxProfit(int[] prices) {
+    //     int n=prices.length;
+    //     int dp[][]=new int[n+1][2];
+
+    //     for(int i=n-1;i>=0;i--){
+    //         for(int j=0;j<2;j++){
+    //             // buy
+    //             dp[i][1]=Math.max(-prices[i]+dp[i+1][0],dp[i+1][1]);
+    //             // cell
+    //             dp[i][0]=Math.max(prices[i]+dp[i+1][1],dp[i+1][0]);
+    //         }
+    //     }
+    //     return dp[0][1];
+    // }
+
+    // Space Optimization
+
     public int maxProfit(int[] prices) {
         int n=prices.length;
-        int dp[][]=new int[n+1][2];
+        int cur[]=new int[2];
+        int next[]=new int[2];
 
         for(int i=n-1;i>=0;i--){
             for(int j=0;j<2;j++){
                 // buy
-                dp[i][1]=Math.max(-prices[i]+dp[i+1][0],dp[i+1][1]);
+                cur[1]=Math.max(-prices[i]+next[0],next[1]);
                 // cell
-                dp[i][0]=Math.max(prices[i]+dp[i+1][1],dp[i+1][0]);
+                cur[0]=Math.max(prices[i]+next[1],next[0]);
             }
+            next[0]=cur[0];
+            next[1]=cur[1];
+
         }
-        return dp[0][1];
+        return next[1];
     }
 
 
