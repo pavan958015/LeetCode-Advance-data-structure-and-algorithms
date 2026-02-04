@@ -5,6 +5,7 @@ class Solution {
             graph.add(new ArrayList<>());
         }
         for (int e[] : edges) {
+            
             graph.get(e[0]).add(e[1]);
             graph.get(e[1]).add(e[0]);
 
@@ -19,8 +20,7 @@ class Solution {
         q.add(source);
         while (!q.isEmpty()) {
             int front = q.poll();
-            if (front == destination)
-                return true;
+            if (front == destination) return true;
             for (int a : graph.get(front)) {
                 if (!vis[a]) {
                     vis[a] = true;
