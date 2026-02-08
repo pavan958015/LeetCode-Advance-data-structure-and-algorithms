@@ -16,7 +16,7 @@ class Solution {
         boolean vis[][]=new boolean[n][m];
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j]!='0' && !vis[i][j]){
+                if(grid[i][j]=='1' && !vis[i][j]){
                      dfs(i,j,grid,vis,n,m);
                      islands++;
                 }
