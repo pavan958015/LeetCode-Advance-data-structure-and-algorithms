@@ -1,4 +1,15 @@
 class Solution {
+    // Time Limit Exceeded;
+    // public int tribonacci(int n){
+    //     if(n==0) return 0;
+    //     if(n==1) return 1;
+    //     if(n==2) return 1;
+
+    //     return tribonacci(n-1)+tribonacci(n-2)+tribonacci(n-3);
+    // }
+
+    // using Recursion
+
     public int tribonacci(int n){
         int dp[]=new int[n+1];
         Arrays.fill(dp,-1);
@@ -8,11 +19,9 @@ class Solution {
         if(n==0) return 0;
         if(n==1) return 1;
         if(n==2) return 1;
-        if(dp[n]!=-1){
-            return dp[n];
-        }
-        // recursion
-        dp[n]=helper(n-1,dp)+helper(n-2,dp)+helper(n-3,dp);
-        return dp[n];
+
+        if(dp[n]!=-1) return dp[n];
+
+        return dp[n]=helper(n-1,dp)+helper(n-2,dp)+helper(n-3,dp);
     }
 }
