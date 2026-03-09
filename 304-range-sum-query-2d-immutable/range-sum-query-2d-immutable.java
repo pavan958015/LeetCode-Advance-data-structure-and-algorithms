@@ -2,9 +2,8 @@ class NumMatrix {
     int preCompute[][];
 
     public NumMatrix(int[][] matrix) {
-        int n=matrix.length;
-        int m=matrix[0].length;
-
+       int n = matrix.length;
+        int m = matrix[0].length;
         preCompute= new int[n][m];
 
         preCompute[0][0]=matrix[0][0];
@@ -36,7 +35,6 @@ class NumMatrix {
     // }
 
     public int sumRegion(int row1, int col1, int row2, int col2) {
-       
         
         int up=(row1>0)?preCompute[row1-1][col2]:0;
         int left=(col1>0)?preCompute[row2][col1-1]:0;
