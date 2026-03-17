@@ -4,11 +4,11 @@ class Solution {
     public void dfs(TreeNode root, int row, int col) {
         if (root == null) return;
 
-        // Initialize column
+        
         map.putIfAbsent(col, new TreeMap<>());
-        // Initialize row inside column
+        
         map.get(col).putIfAbsent(row, new ArrayList<>());
-        // Add value
+        
         map.get(col).get(row).add(root.val);
 
         dfs(root.left, row + 1, col - 1);
