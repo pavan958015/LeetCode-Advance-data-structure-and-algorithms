@@ -14,26 +14,29 @@
  * }
  */
 class Solution {
-    private int ans = 0;
-    private int maxDepth=-1;
+    int ans;
+    int maxDepth = -1;
 
     public int findBottomLeftValue(TreeNode root) {
-        if(root.left==null && root.right==null) return root.val;
+        ans = 0;
+        if (root.left == null && root.right == null)
+            return root.val;
+
         solve(root, 0);
+
         return ans;
     }
 
-    public  void solve(TreeNode root, int depth) {
+    public void solve(TreeNode root, int depth) {
         if (root == null)
             return;
-        
 
         if (depth > maxDepth) {
             maxDepth = depth;
             ans = root.val;
         }
 
-        solve(root.left, depth+1);
-        solve(root.right, depth+1);
+        solve(root.left, depth + 1);
+        solve(root.right, depth + 1);
     }
 }
