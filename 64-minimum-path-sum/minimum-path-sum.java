@@ -1,27 +1,47 @@
 class Solution {
-   public int minPathSum(int grid[][]) {
-        int dp[][] = new int[grid.length][grid[0].length];
-        for (int i = 0; i < dp.length; i++) {
-            for (int j = 0; j < dp[0].length; j++) {
-                dp[i][j] = -1;
-            }
-        }
-        return helper(0, 0, grid.length - 1, grid[0].length - 1, grid, dp);
-    }
+    // public int minPathSum(int[][] grid) {
+    //     int n=grid.length;
+    //     int m=grid[0].length;
 
-    public static int helper(int sr, int sc, int m, int n, int grid[][], int dp[][]) {
-        if (sr == m && sc == n) {
-            return grid[sr][sc];
+    //     return solve(0,0,n-1,m-1,grid);
+    // }
+    // public  int solve(int i,int j,int n,int m,int[][]grid){
+    //     if(i==n && j==m) return grid[i][j];
+    //     if(i>n || j>m) return Integer.MAX_VALUE;
+
+    //     int bottom=solve(i+1,j,n,m,grid);
+    //     int left=solve(i,j+1,n,m,grid);
+
+    //     int min=Math.min(bottom,left);
+    //     if(min==Integer.MAX_VALUE) return min;
+        
+    //     return grid[i][j]+min;
+
+    // }
+
+    public int minPathSum(int[][] grid) {
+        int n=grid.length;
+        int m=grid[0].length;
+
+        int dp[][]=new int[n][m];
+        for(int i=0;i<n;i++){
+            Arrays.fill(dp[i],-1);
         }
-        if (sr > m || sc > n) {
-            return Integer.MAX_VALUE;
-        }
-        if (dp[sr][sc] != -1) {
-            return dp[sr][sc];
-        }
-        int down = helper(sr + 1, sc, m, n, grid, dp);
-        int right = helper(sr, sc + 1, m, n, grid, dp);
-        dp[sr][sc] = grid[sr][sc] + Math.min(down, right);
-        return dp[sr][sc];
+        return solve(0,0,n-1,m-1,grid,dp);
+    }
+    public  int solve(int i,int j,int n,int m,int[][]grid,int[][] dp){
+        if(i==n && j==m) return grid[i][j];
+        if(i>n || j>m) return Integer.MAX_VALUE;
+
+        if(dp[i][j]!=-1) return dp[i][j];
+
+        int bottom=solve(i+1,j,n,m,grid,dp);
+        int left=solve(i,j+1,n,m,grid,dp);
+
+        int min=Math.min(bottom,left);
+        if(min==Integer.MAX_VALUE) return min;
+        
+        return dp[i][j]=grid[i][j]+min;
+
     }
 }
