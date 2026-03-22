@@ -1,86 +1,50 @@
 class Solution {
     // public int change(int amount, int[] coins) {
-    //     return solve(coins.length-1,amount,coins);
-    // }
-    // public static int solve(int idx,int amount,int [] coins){
-    //     // base;
-    //     if(idx==0){
-    //         if(amount % coins[0]==0){
-    //             return 1;
-    //         }else{
-    //             return 0;
-    //         }
-    //     }
-
-    //     // take
-    //     int take=0;
-    //     if(coins[idx]<=amount){
-    //         take=solve(idx,amount-coins[idx],coins);
-    //     }
-    //     // not take
-    //     int notTake=solve(idx-1,amount,coins);
-
-    //     return take+notTake;
-    // }
-
-
-    // using DP
-    // public int change(int amount, int[] coins) {
     //     int dp[][]=new int[coins.length][amount+1];
     //     for(int i=0;i<coins.length;i++){
-    //         for(int j=0;j<dp[0].length;j++){
-    //             dp[i][j]=-1;
-    //         }
+    //         Arrays.fill(dp[i],-1);
     //     }
-    //     return solve(coins.length-1,amount,coins,dp);
+    //     return solve(0,coins.length,amount,coins,dp);
     // }
-    // public static int solve(int idx,int amount,int [] coins,int[][] dp){
-    //     // base;
-    //     if(idx==0){
-    //         if(amount % coins[0]==0){
-    //             return 1;
-    //         }else{
-    //             return 0;
-    //         }
+    // public static int solve(int idx,int n,int amount,int[] coins,int[][] dp){
+    //     // base case
+    //     if(idx==n) return 0;
+    //     if(idx==n-1){
+    //         if(amount%coins[idx]==0) return amount/coins[idx];
     //     }
-    //     if(dp[idx][amount]!=-1)
-    //         return dp[idx][amount];
-    //     // take
-    //     int take=0;
+    //     if(amount==0) return 1;
+
+    //     if(dp[idx][amount]!=-1) return dp[idx][amount];
+
+    //     int notPick=solve(idx+1,n,amount,coins,dp);
+    //     int pick=0;
     //     if(coins[idx]<=amount){
-    //         take=solve(idx,amount-coins[idx],coins,dp);
+    //         pick=solve(idx,n,amount-coins[idx],coins,dp);
     //     }
-    //     // not take
-    //     int notTake=solve(idx-1,amount,coins,dp);
-
-    //     return dp[idx][amount]=take+notTake;
+    //     return dp[idx][amount]=pick+notPick;
     // }
 
-    // tabulation 
-    public int change(int amount, int[] coins){
+
+    public int change(int amount,int[] coins){
         int n=coins.length;
-        int tab[][]=new int[n][amount+1];
-        for(int i=0;i<n;i++){
-            tab[i][0]=1;
-        }
-        for(int j=1;j<=amount;j++){
-            if(j%coins[0]==0)
-                tab[0][j]=1;
+        int dp[][]=new int[n][amount+1];
+
+        for(int i=0;i<n;i++)
+            dp[i][0]=1;
+        for(int a=0;a<=amount;a++){
+            if(a%coins[0]==0) 
+                dp[0][a]=1;
         }
         for(int i=1;i<n;i++){
-            for(int j=1;j<=amount;j++){
-                // take
-                int take=0;
-                if(coins[i]<=j){
-                    take=tab[i][j-coins[i]];
+            for(int a=0;a<=amount;a++){
+                int notPick=dp[i-1][a];
+                int pick=0;
+                if(coins[i]<=a){
+                    pick=dp[i][a-coins[i]];
                 }
-                // not take
-                int notTake=tab[i-1][j];
-
-                tab[i][j]=take+notTake;
+                dp[i][a]=pick+notPick;
             }
         }
-        return tab[n-1][amount];
-
+        return dp[n-1][amount];
     }
 }
