@@ -1,22 +1,17 @@
 class Solution {
     public int findTargetSumWays(int[] nums, int target) {
-        int totalSum = 0;
-        for (int num : nums) totalSum += num;
+        return solve(0, target, nums);
+    }
 
-        // Edge cases
-        if (Math.abs(target) > totalSum) return 0;
-        if ((totalSum + target) % 2 != 0) return 0;
+    public static int solve(int idx, int target, int[] nums) {
 
-        int sum = (totalSum + target) / 2;
-
-        int[] dp = new int[sum + 1];
-        dp[0] = 1;
-
-        for (int num : nums) {
-            for (int j = sum; j >= num; j--) {
-                dp[j] += dp[j - num];
-            }
+        if (idx == nums.length) {
+            return target == 0 ? 1 : 0;
         }
-        return dp[sum];
+
+        int positive = solve(idx + 1, target - nums[idx], nums);
+        int negative = solve(idx + 1, target + nums[idx], nums);
+
+        return  positive + negative;
     }
 }
