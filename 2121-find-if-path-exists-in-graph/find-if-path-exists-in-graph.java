@@ -1,4 +1,23 @@
 class Solution {
+    public static boolean bfs(int source,int destination,List<List<Integer>> adj,boolean[] vis){
+        Queue<Integer> q=new LinkedList<>();
+        q.add(source);
+        vis[source]=true;
+
+        while(!q.isEmpty()){
+            int cur=q.poll();
+
+            if(cur==destination) return true;
+
+            for(int node:adj.get(cur)){
+                if(!vis[node]){
+                    vis[node]=true;
+                    q.add(node);
+                }
+            }
+        }
+        return false;
+    }
     public static boolean dfs(int source,int destination,List<List<Integer>> adj,boolean[] vis){
         vis[source]=true;
         if(source==destination) return true;
@@ -26,6 +45,8 @@ class Solution {
 
         }
         boolean vis[]=new boolean[n];
-        return dfs(source,destination,adj,vis);
+        // return dfs(source,destination,adj,vis);
+        return bfs(source,destination,adj,vis);
+
     }
 }
