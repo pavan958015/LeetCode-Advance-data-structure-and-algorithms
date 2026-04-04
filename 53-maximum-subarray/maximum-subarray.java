@@ -1,34 +1,17 @@
 class Solution {
-    // public int maxSubArray(int[] nums) {
-    //     int max=0;
-    //     int sum=0;
-    //     for(int i=0;i<nums.length;i++){
-    //         for(int j=i;j<nums.length;j++){
-    //             sum+=nums[j];
-    //             max=Math.max(sum,max);
-    //         }
-    //         sum=0;
-    //     }
-    //     return max;
-    // }
-
-
-        // using Kanade ALgorithm
-    public int maxSubArray(int [] nums){
-        int sum=0;
+    public int maxSubArray(int[] nums) {
+        int n=nums.length;
         int max=Integer.MIN_VALUE;
-
-        for(int i=0;i<nums.length;i++){
+        int sum=0;
+        for(int i=0;i<n;i++){
             sum+=nums[i];
 
-              if(sum>max){
+            if(sum>max){
                 max=sum;
-              }
+            }
 
-             if(sum<0) {
-                sum=0;
-             }
-        }
-        return max;
+            if(sum<0) sum=0;
+        } 
+        return max;  
     }
 }
