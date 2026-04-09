@@ -32,8 +32,8 @@ class Solution {
         if (j + 1 < m)
             score = Math.max(score, solve(i, j + 1, n, m, grid, remainingK, dp));
 
-        if (score < 0)
-    return dp[i][j][remainingK] = -1000000;
+        // if (score < 0)
+        //     return dp[i][j][remainingK] = -1000000;
 
         return dp[i][j][remainingK] = grid[i][j] + score;
     }
