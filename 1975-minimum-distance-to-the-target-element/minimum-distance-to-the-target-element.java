@@ -6,6 +6,7 @@ class Solution {
             if(nums[i]==target){
                 ans=Math.min(ans,Math.abs(i-start));
             }
+            
         }
         return ans;
     }
