@@ -1,8 +1,8 @@
 class Solution {
     public boolean isMatch(String s, String p) {
         boolean dp[][] = new boolean[s.length()+1][p.length()+1];
-        int row = dp.length - 1;
-        int col = dp[0].length - 1;
+        int row = s.length();
+        int col = p.length();
 
         for (int i = 0; i <= row; i++) {
             for (int j = 0; j <= col; j++) {
