@@ -4,6 +4,8 @@ class Solution {
         //then
         // ( n - 1 ) ( n - 1 ) to ( 0 , 0 );
 
+        // will lose
+
 
         // OR
 
@@ -29,8 +31,8 @@ class Solution {
         if (r1 >= n || r2 >= n || c1 >= n || c2 >= n || grid[r1][c1] == -1 || grid[r2][c2] == -1)
             return Integer.MIN_VALUE;
 
-        if (r1 + c1 != r2 + c2)
-            return Integer.MIN_VALUE;
+        // if (r1 + c1 != r2 + c2)
+        //     return Integer.MIN_VALUE;
 
         if (r1 == n - 1 && c1 == n - 1 && r2 == n - 1 && c2 == n - 1)
             return grid[r1][c1];
