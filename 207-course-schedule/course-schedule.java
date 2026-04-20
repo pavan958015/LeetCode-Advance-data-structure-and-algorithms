@@ -1,6 +1,5 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Stack<Integer> st = new Stack<>();
         List<List<Integer>> adj = new ArrayList<>();
         for (int i = 0; i < numCourses; i++) {
             adj.add(new ArrayList<>());
@@ -20,7 +19,7 @@ class Solution {
         //             return false;
         //     }
         // }
-        List<Integer> ans= Topological_Sort(numCourses,adj);
+        List<Integer> ans= Topological_Sort_BFS(numCourses,adj);
 
         if(ans.size()!=numCourses){
             return false;
@@ -44,7 +43,7 @@ class Solution {
 //         st.push(source);
 //         return false;
 //     }
-public static List<Integer> Topological_Sort(int V, List<List<Integer>> adj) {
+public static List<Integer> Topological_Sort_BFS(int V, List<List<Integer>> adj) {
         List<Integer> ans = new ArrayList<>();
 
         int indegree[] = new int[V];
