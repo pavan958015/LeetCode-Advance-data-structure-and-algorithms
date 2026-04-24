@@ -3,31 +3,38 @@ class MinStack {
     Stack<Integer> minStack;
 
     public MinStack() {
-        st = new Stack<>();
-        minStack = new Stack<>();
+        st=new Stack<>();
+        minStack=new Stack<>();    
     }
-
+    
     public void push(int val) {
         st.push(val);
-        // Correct: use <= to handle duplicate minimums
-        if (minStack.isEmpty() || val <= minStack.peek()) {
+        if(minStack.isEmpty() || val<=minStack.peek()){
             minStack.push(val);
         }
     }
-
+    
     public void pop() {
-        // Correct: Only pop from minStack if it's the current minimum
         if (st.peek().equals(minStack.peek())) {
-            minStack.pop();
-        }
-        st.pop();
+        minStack.pop();
     }
-
+    st.pop();
+    }
+    
     public int top() {
         return st.peek();
     }
-
+    
     public int getMin() {
         return minStack.peek();
     }
 }
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(val);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
