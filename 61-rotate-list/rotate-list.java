@@ -19,7 +19,7 @@ class Solution {
             len++;
         }
         k=k%len;
-        if(k==0) return head;
+        // if(k==0) return head;
 
         cur.next=head;
         cur=head;
