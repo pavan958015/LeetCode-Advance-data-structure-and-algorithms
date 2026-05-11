@@ -14,15 +14,16 @@
  * }
  */
 class Solution {
-    TreeNode prev=null;
+    TreeNode before=null;
     public void flatten(TreeNode root) {
         if(root==null) return;
 
         flatten(root.right);
         flatten(root.left);
 
-        root.right=prev;
+        root.right=before;
         root.left=null;
-        prev=root;
+
+        before=root;
     }
 }
