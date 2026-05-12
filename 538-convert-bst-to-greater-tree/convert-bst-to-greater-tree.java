@@ -14,14 +14,21 @@
  * }
  */
 class Solution {
-    private int sum=0;
+    static int sum;
     public TreeNode convertBST(TreeNode root) {
-        if(root!=null){
-            convertBST(root.right);
-            sum+=root.val;
-            root.val=sum;
-            convertBST(root.left);
-        }
+        if(root==null) return null;
+        sum=0;
+        return solve(root);
+    }
+    public static TreeNode solve(TreeNode root){
+        if(root==null) return null;
+
+        solve(root.right);
+
+        sum+=root.val;
+        root.val=sum;
+        solve(root.left);
+
         return root;
     }
 }
