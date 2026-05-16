@@ -13,7 +13,7 @@ class Solution {
                 r = mid;
 
             } else {
-                
+                // if not decide means dublicate so only shrink one step form right;
                 r--;
             }
         }
