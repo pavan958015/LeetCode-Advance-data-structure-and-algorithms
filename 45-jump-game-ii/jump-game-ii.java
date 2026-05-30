@@ -1,4 +1,19 @@
 class Solution {
+
+    // using Greedy or rec
+    public int jummp(int[] nums){
+        return solve(0,0,nums);
+    }
+    public static int solve(int idx,int step,int[] nums){
+        if(idx>=nums.length-1) return step;
+
+
+        int min=Integer.MAX_VALUE;
+        for(int i=1;i<=nums[idx];i++){
+            min=Math.min(min,solve(idx+i,step+1,nums));
+        }
+        return min;
+    }
     // public int jump(int[] nums) {
     //     int count = 0;
     //     int max = 0;
