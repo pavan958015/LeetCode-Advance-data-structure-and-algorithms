@@ -34,21 +34,16 @@ class Solution {
         }
         return dp[pos][sum][prev2][prev][small][nonZero] = ans;
     }
-
     // returns total waviness from 1 to x
     public static long count(long x) {
-
         if (x <= 0) {
             return 0;
         }
-
         list = new ArrayList<>();
-
         while (x > 0) {
             list.add((int) (x % 10));
             x /= 10;
         }
-
         Collections.reverse(list);
         int maxLen = list.size();
         dp = new Long[maxLen ][25][11][11][2][2];
