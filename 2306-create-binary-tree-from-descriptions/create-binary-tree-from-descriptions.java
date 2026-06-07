@@ -21,6 +21,8 @@ class Solution {
                 map.put(child, new TreeNode(child));
             }
 
+
+
             TreeNode parentNode = map.get(parent);
             TreeNode childNode = map.get(child);
 
@@ -30,6 +32,9 @@ class Solution {
                 parentNode.right = childNode;
             }
         }
+
+
+
 
         // Root find karne ke liye
         for (int[] node : descriptions) {
@@ -41,5 +46,6 @@ class Solution {
         }
 
         return null;
-    }
+     }
+
 }
