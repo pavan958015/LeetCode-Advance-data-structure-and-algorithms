@@ -12,7 +12,7 @@ class Solution {
         // base Condition
         if (target == 0) {
             List<Integer> temp = new ArrayList<>(cur);
-            Collections.sort(temp);
+            // Collections.sort(temp);
 
             String key = temp.toString();
             if (!set.contains(key)) {
