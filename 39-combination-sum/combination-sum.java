@@ -1,13 +1,12 @@
 class Solution {
-     Set<String> s=new HashSet<>();
+     Set<String> set=new HashSet<>();
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> list=new ArrayList<>();
         
-
-        helper(candidates,0,new ArrayList<>(),target,list);
+        helper(0,candidates,new ArrayList<>(),target,list);
         return list;
     }
-    private void helper(int[] arr,int index,ArrayList<Integer> cur,
+    private void helper(int index,int[] arr,ArrayList<Integer> cur,
                         int target ,List<List<Integer>> ans){
         
         // base Condition
@@ -16,8 +15,8 @@ class Solution {
             Collections.sort(temp);
 
             String key = temp.toString();
-            if (!s.contains(key)) {
-                s.add(key);
+            if (!set.contains(key)) {
+                set.add(key);
                 ans.add(temp);
             }
             return;
@@ -26,12 +25,12 @@ class Solution {
 
         cur.add(arr[index]);
         // Single Include
-        helper(arr,index+1,cur,target-arr[index],ans);
+        helper(index+1,arr,cur,target-arr[index],ans);
         // multiple Include
-        helper(arr,index,cur,target-arr[index],ans);
+        helper(index,arr,cur,target-arr[index],ans);
         // exclude
         cur.remove(cur.size()-1);
-        helper(arr,index+1,cur,target,ans);
+        helper(index+1,arr,cur,target,ans);
 
     }
 }
