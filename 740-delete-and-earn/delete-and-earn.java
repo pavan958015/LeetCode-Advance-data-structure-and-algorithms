@@ -1,18 +1,31 @@
 class Solution {
+    int max;
+    int[] point;
     public int deleteAndEarn(int[] nums) {
-        int freq[]=new int[10001];
-        int max=0;
-        for(int i=0;i<nums.length;i++){
-            freq[nums[i]]++;
-            max=Math.max(max,nums[i]);
+        max=0;
+        for(int num:nums){
+            if(num>max) max=num; 
         }
+
+        point=new int[max+1];
+        for(int x:nums){
+            point[x]+=x;
+        }
+
         int dp[]=new int[max+1];
+        Arrays.fill(dp,-1);
+        return solve(0,dp);
+    }
+    private int solve(int i,int dp[]){
+        if(i>max) return 0;
 
-        dp[1]=freq[1]*1;
+        if(dp[i]!=-1) return dp[i];
 
-        for(int i=2;i<=max;i++){
-            dp[i]=Math.max(dp[i-1],dp[i-2]+freq[i]*i);
-        }
-        return dp[max];
+        // skip
+        int skip=solve(i+1,dp);
+        // take
+        int take=point[i]+solve(i+2,dp);
+
+        return dp[i]=Math.max(take,skip);
     }
 }
