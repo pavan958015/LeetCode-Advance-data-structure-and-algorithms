@@ -6,9 +6,7 @@ class Solution {
         
 		Queue<int[]> Q = new LinkedList(); 
         Q.add(new int[]{0, 0, k});
-		//0 index -> x coordinate
-		//1 index -> y coordinate
-		//2 index -> obstacle count
+		
      
         int res = 0;
         
@@ -22,7 +20,7 @@ class Solution {
                 int y = rem[1];
                 int obs = rem[2];
                 
-                if(x == m - 1 && y == n - 1 && obs >= 0)   return res;     // reached end
+                if(x == m - 1 && y == n - 1 && obs >= 0)   return res;     
                 
                 if(obs < 0 || visited[x][y][obs] == true)  continue;
                 visited[x][y][obs] = true;
