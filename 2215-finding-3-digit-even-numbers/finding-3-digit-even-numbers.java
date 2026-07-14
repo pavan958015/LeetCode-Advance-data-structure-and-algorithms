@@ -1,6 +1,6 @@
 class Solution {
 
-    TreeSet<Integer> set = new TreeSet<>();
+    Set<Integer> set = new TreeSet<>();
 
     public int[] findEvenNumbers(int[] digits) {
 
@@ -18,6 +18,7 @@ class Solution {
         for (int num : set) {
             ans[i++] = num;
         }
+        Arrays.sort(ans);
 
         return ans;
     }
