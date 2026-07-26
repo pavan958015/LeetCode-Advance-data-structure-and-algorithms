@@ -31,7 +31,10 @@ class Solution {
                 third = nums[i];
             }
         }
-        int maxProduct=Math.max(first*second*third,min1*min2*first);
+        int maxPos=first*second*third;
+        int maxNeg=min1*min2*first;
+
+        int maxProduct=Math.max(maxPos,maxNeg);
         return maxProduct;
     }
 }
