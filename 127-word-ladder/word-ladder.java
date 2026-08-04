@@ -1,40 +1,49 @@
 class Solution {
-    static class Pair{
-        String str;
+    static class Pair {
+        String word;
         int step;
-        Pair(String str,int step){
-            this.str=str;
-            this.step=step;
+
+        Pair(String word, int step) {
+            this.word = word;
+            this.step = step;
         }
     }
+
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Set<String> set=new HashSet<>();
-        Queue<Pair> q=new LinkedList<>();
-        q.add(new Pair(beginWord,1));
-        for(int i=0;i<wordList.size();i++){
-            set.add(wordList.get(i));
+        int n = wordList.size();
+
+        Queue<Pair> q = new LinkedList<>();
+        Set<String> set = new HashSet<>();
+
+        for (String s : wordList) {
+            set.add(s);
         }
-        set.remove(beginWord);
 
-        while(!q.isEmpty()){
-            Pair cur=q.poll();
-            String word=cur.str;
-            int step=cur.step;
+        q.add(new Pair(beginWord, 1));
+        if (set.contains(beginWord)) {
+            set.remove(beginWord);
+        }
 
-            if(word.equals(endWord)) return step;
+        while (!q.isEmpty()) {
+            Pair p = q.poll();
+            String word = p.word;
+            int step = p.step;
 
-            for(int i=0;i<word.length();i++){
-                for(char ch='a';ch<='z';ch++){
-                    char arr[]=word.toCharArray();
-                    arr[i]=ch;
-                    String newS=new String(arr);
-                    if(set.contains(newS)==true){
-                        set.remove(newS);
-                        q.add(new Pair(newS,step+1));
+            if (word.equals(endWord))
+                return step;
+
+            for (int i = 0; i < word.length(); i++) {
+                for (char ch = 'a'; ch <= 'z'; ch++) {
+                    char[] str = word.toCharArray();
+                    str[i] = ch;
+
+                    String newStr = new String(str);
+                    if (set.contains(newStr)) {
+                        q.add(new Pair(newStr, step + 1));
+                        set.remove(newStr);
                     }
                 }
             }
-
         }
         return 0;
     }
