@@ -1,44 +1,41 @@
-import java.util.LinkedList;
-import java.util.Queue;
-
 class Solution {
     public int[][] updateMatrix(int[][] mat) {
-        int m = mat.length;
-        int n = mat[0].length;
-        
-        int[][] dist = new int[m][n];
-        Queue<int[]> queue = new LinkedList<>();
+        int n=mat.length;
+        int m=mat[0].length;
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (mat[i][j] == 0) {
-                    dist[i][j] = 0;
-                    queue.add(new int[]{i, j});
-                } else {
-                    dist[i][j] = -1; 
+        int ans[][]=new int[n][m];
+
+        Queue<int[]> q=new LinkedList<>();
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==0){
+                    ans[i][j]=0;
+                    q.add(new int[]{i,j});
+                }else{
+                    ans[i][j]=-1;
+                }
+            }
+        }   
+        int dx[]={-1,1,0,0};
+        int dy[]={0,0,-1,1};
+
+        while(!q.isEmpty()){
+            int[] node=q.poll();
+            int x=node[0];
+            int y=node[1];
+
+            for(int i=0;i<4;i++){
+                int nx=x+dx[i];
+                int ny=y+dy[i];
+
+
+                if(nx>=0 && ny>=0 && nx<n && ny<m && ans[nx][ny]==-1){
+                    ans[nx][ny]=ans[x][y]+1;
+                    q.add(new int[]{nx,ny});
                 }
             }
         }
-
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-
-        while (!queue.isEmpty()) {
-            int[] curr = queue.poll();
-            int r = curr[0];
-            int c = curr[1];
-
-            for (int i = 0; i < 4; i++) {
-                int nr = r + dx[i];
-                int nc = c + dy[i];
-
-                if (nr >= 0 && nr < m && nc >= 0 && nc < n && dist[nr][nc] == -1) {
-                    dist[nr][nc] = dist[r][c] + 1;
-                    queue.add(new int[]{nr, nc});
-                }
-            }
-        }
-
-        return dist;
+        return ans;
     }
 }
