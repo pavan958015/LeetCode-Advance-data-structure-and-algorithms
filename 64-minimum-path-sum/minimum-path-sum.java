@@ -39,7 +39,7 @@ class Solution {
         int left=solve(i,j+1,n,m,grid,dp);
 
         int min=Math.min(bottom,left);
-        if(min==Integer.MAX_VALUE) return min;
+        // if(min==Integer.MAX_VALUE) return min;
         
         return dp[i][j]=grid[i][j]+min;
 
