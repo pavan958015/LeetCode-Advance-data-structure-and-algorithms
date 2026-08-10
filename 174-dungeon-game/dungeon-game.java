@@ -69,32 +69,26 @@ class Solution {
         int m = dungeon.length;
         int n = dungeon[0].length;
 
-        // Base Case: Reached the princess cell (bottom-right)
         if (i == m - 1 && j == n - 1) {
             return dungeon[i][j] <= 0 ? 1 - dungeon[i][j] : 1;
         }
 
-        // Return memoized result if available
         if (memo[i][j] != -1) {
             return memo[i][j];
         }
 
         int minHealthFromNext = Integer.MAX_VALUE;
 
-        // Move Down
         if (i + 1 < m) {
             minHealthFromNext = Math.min(minHealthFromNext, solve(i + 1, j, dungeon, memo));
         }
 
-        // Move Right
         if (j + 1 < n) {
             minHealthFromNext = Math.min(minHealthFromNext, solve(i, j + 1, dungeon, memo));
         }
 
-        // Calculate health needed at (i, j)
         int healthNeeded = minHealthFromNext - dungeon[i][j];
 
-        // Health must always be at least 1
         memo[i][j] = healthNeeded <= 0 ? 1 : healthNeeded;
 
         return memo[i][j];
