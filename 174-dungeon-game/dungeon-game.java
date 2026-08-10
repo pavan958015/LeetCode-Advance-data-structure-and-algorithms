@@ -1,11 +1,13 @@
 public class Solution {
+    
     public  int calculateMinimumHP(int[][] dungeonGame) {
         int m = dungeonGame.length;
         int n = dungeonGame[0].length;
 
         // using binary search
         int low = 1;
-        int high = (int) 1e9;
+        // int high = 4*(int) 1e7;
+        int high=400000;
         int ans = 0;
         while (low <= high) {
             int mid = low + (high - low) / 2;
@@ -21,8 +23,9 @@ public class Solution {
     }
 
     public static boolean isPossible(int[][] arr,int mid,int m,int n){
+    
         int grid[][]=new int[m][n];
-
+        
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 grid[i][j]=-1;
@@ -40,10 +43,7 @@ public class Solution {
 
                 grid[i][j]=Math.max(up,left);
             }
-
         }
         return grid[m-1][n-1]>0;
-
     }
-
 }
