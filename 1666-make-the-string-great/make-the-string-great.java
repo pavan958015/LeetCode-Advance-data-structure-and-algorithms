@@ -12,9 +12,9 @@ class Solution {
         
         StringBuilder result = new StringBuilder();
         while (!stack.isEmpty()) {
-            result.insert(0, stack.pop());
+            result.append(stack.pop()+"");
         }
         
-        return result.toString();
+        return result.reverse().toString();
     }
 }
