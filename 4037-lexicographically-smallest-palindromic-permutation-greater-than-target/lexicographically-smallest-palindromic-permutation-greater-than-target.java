@@ -1,36 +1,35 @@
 class Solution {
 
-/*
-
-My Approach
-s
- ↓
-half
- ↓
-all permutations of half
- ↓
-palindrome
- ↓
-compare target
-
-
-
-Final Approach
-
-s
- ↓
-frequency
- ↓
-target ke prefix ko follow karo
- ↓
-rightmost position par smallest greater character
- ↓
-remaining characters sorted
- ↓
-palindrome
-
-*/
-
+    /*
+    
+    My Approach
+    s
+     ↓
+    half
+     ↓
+    all permutations of half
+     ↓
+    palindrome
+     ↓
+    compare target
+    
+    
+    
+    Final Approach
+    
+    s
+     ↓
+    frequency
+     ↓
+    target ke prefix ko follow karo
+     ↓
+    rightmost position par smallest greater character
+     ↓
+    remaining characters sorted
+     ↓
+    palindrome
+    
+    */
 
     public String lexPalindromicPermutation(String s, String target) {
 
@@ -51,12 +50,10 @@ palindrome
             }
         }
 
-        // More than one odd frequency => palindrome impossible
         if (odd > 1) {
             return "";
         }
 
-        // Build frequency of the left half
         int[] halfFreq = new int[26];
 
         for (int i = 0; i < 26; i++) {
@@ -65,47 +62,30 @@ palindrome
 
         int halfLen = n / 2;
 
-        // Target's first half
         String targetHalf = target.substring(0, halfLen);
 
-        /*
-         * First try to build the smallest half which is
-         * greater than targetHalf.
-         */
         String greaterHalf = buildGreaterHalf(
-            targetHalf,
-            halfFreq
-        );
+                targetHalf,
+                halfFreq);
 
-        /*
-         * Also check whether targetHalf itself can be used.
-         * If it can, construct its palindrome and check
-         * whether that palindrome is actually > target.
-         */
         if (canBuild(targetHalf, halfFreq)) {
 
             String candidate = buildPalindrome(
-                targetHalf,
-                middle,
-                n
-            );
+                    targetHalf,
+                    middle,
+                    n);
 
             if (candidate.compareTo(target) > 0) {
                 return candidate;
             }
         }
 
-        /*
-         * If equal half is not enough, use the smallest
-         * half which is strictly greater.
-         */
         if (greaterHalf != null) {
 
             return buildPalindrome(
-                greaterHalf,
-                middle,
-                n
-            );
+                    greaterHalf,
+                    middle,
+                    n);
         }
 
         return "";
@@ -133,21 +113,10 @@ palindrome
 
         int n = targetHalf.length();
 
-        /*
-         * We try to keep targetHalf's prefix same
-         * and make one position greater.
-         *
-         * Start from the right because we want the
-         * smallest possible greater string.
-         */
         for (int pos = n - 1; pos >= 0; pos--) {
 
             int[] count = freq.clone();
 
-            /*
-             * Use the prefix [0 ... pos-1] exactly
-             * like targetHalf.
-             */
             boolean possible = true;
 
             for (int i = 0; i < pos; i++) {
@@ -182,14 +151,10 @@ palindrome
 
                 StringBuilder result = new StringBuilder();
 
-                // Prefix same as target
                 result.append(targetHalf, 0, pos);
 
-                // Make this position greater
                 result.append((char) ('a' + c));
 
-                // Fill remaining positions with
-                // smallest possible characters
                 for (int x = 0; x < 26; x++) {
 
                     while (count[x] > 0) {
@@ -206,10 +171,9 @@ palindrome
     }
 
     private String buildPalindrome(
-        String half,
-        char middle,
-        int n
-    ) {
+            String half,
+            char middle,
+            int n) {
 
         StringBuilder result = new StringBuilder();
 
@@ -220,8 +184,7 @@ palindrome
         }
 
         result.append(
-            new StringBuilder(half).reverse()
-        );
+                new StringBuilder(half).reverse());
 
         return result.toString();
     }
