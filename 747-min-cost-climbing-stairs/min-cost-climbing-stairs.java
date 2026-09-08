@@ -1,26 +1,22 @@
 class Solution {
-    // public int minCostClimbingStairs(int[] cost) {
-    //     int dp[]=new int[cost.length+1];
-    //     for(int i=2;i<dp.length;i++){
-    //         dp[i]=Math.min(dp[i-1]+cost[i-1],dp[i-2]+cost[i-2]);
-    //     }
-    //     return dp[dp.length-1];
-    // }
+    public int minCostClimbingStairs(int[] cost) {
+        Integer[] dp=new Integer[cost.length];
+        int oneStep = solve(0, cost,dp);
+        int twoStep = solve(1, cost,dp);
 
-    public int minCostClimbingStairs(int[] cost){
-        int dp[]=new int[cost.length+1];
-        Arrays.fill(dp,-1);
-        int one=helper(0,cost,cost.length,dp);
-        int two=helper(1,cost,cost.length,dp);
-        return Math.min(one,two);
+        return Math.min(oneStep, twoStep);
     }
-    public static int helper(int step,int[]cost,int n,int[] dp){
-        if(step>=n){
+
+    private int solve(int idx, int[] nums,Integer[] dp) {
+        if (idx >= nums.length)
             return 0;
-        }
-        if(dp[step]!=-1) return dp[step];
-        int one=helper(step+1,cost,n,dp);
-        int two=helper(step+2,cost,n,dp);
-        return dp[step]=cost[step]+Math.min(one,two);
+        if(dp[idx]!=null) return dp[idx];
+
+        int one = nums[idx] + solve(idx + 1, nums,dp);
+
+        int two = nums[idx] + solve(idx + 2, nums,dp);
+
+        return dp[idx]=Math.min(one, two);
+
     }
 }
