@@ -1,96 +1,45 @@
-// public class Solution {
-    
-//     public  int calculateMinimumHP(int[][] dungeonGame) {
-//         int m = dungeonGame.length;
-//         int n = dungeonGame[0].length;
-
-//         // using binary search
-//         int low = 1;
-//         // int high = 4*(int) 1e7;
-//         int high=400000;
-//         int ans = 0;
-//         while (low <= high) {
-//             int mid = low + (high - low) / 2;
-
-//             if (isPossible(dungeonGame, mid, m, n)) {
-//                 ans = mid;
-//                 high = mid - 1;
-//             } else {
-//                 low = mid + 1;
-//             }
-//         }
-//         return ans;
-//     }
-
-//     public static boolean isPossible(int[][] arr,int mid,int m,int n){
-    
-//         int grid[][]=new int[m][n];
-        
-//         for(int i=0;i<m;i++){
-//             for(int j=0;j<n;j++){
-//                 grid[i][j]=-1;
-//             }
-//         }
-//         grid[0][0]=mid+arr[0][0];
-//         for(int i=0;i<grid.length;i++){
-//             for(int j=0;j<grid[0].length;j++){
-//                 if(i==0 && j==0) continue;
-//                 int up=Integer.MIN_VALUE;
-//                 int left=Integer.MIN_VALUE;
-
-//                 if(i>0 && grid[i-1][j]>0) up=grid[i-1][j]+arr[i][j];
-//                 if(j>0 && grid[i][j-1]>0) left=grid[i][j-1]+arr[i][j];
-
-//                 grid[i][j]=Math.max(up,left);
-//             }
-//         }
-//         return grid[m-1][n-1]>0;
-//     }
-// }
-
-
-import java.util.Arrays;
-
 class Solution {
+    int n;
+    int m;
     public int calculateMinimumHP(int[][] dungeon) {
-        int m = dungeon.length;
-        int n = dungeon[0].length;
-        
-        // Memoization table initialized to -1
-        int[][] memo = new int[m][n];
-        for (int[] row : memo) {
-            Arrays.fill(row, -1);
+        n=dungeon.length;
+        m=dungeon[0].length;
+
+        int low=1;
+        int high=2000001;
+
+
+        while(low<=high){
+            int mid=low+(high-low)/2;
+
+            int[][] dp=new int[n][m];
+
+            if(isValid(0,0,mid,dungeon,dp)){
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
         }
-        
-        return solve(0, 0, dungeon, memo);
+        return low;
     }
+    private boolean isValid(int i,int j,int energy,int[][] matrix,int[][] dp){
+        if(i>=n || j>=m) return false;
 
-    private int solve(int i, int j, int[][] dungeon, int[][] memo) {
-        int m = dungeon.length;
-        int n = dungeon[0].length;
+        if(dp[i][j]>=energy) return false;
 
-        if (i == m - 1 && j == n - 1) {
-            return dungeon[i][j] <= 0 ? 1 - dungeon[i][j] : 1;
+        dp[i][j]=energy;
+
+        energy+=matrix[i][j];
+
+        if(energy<=0) return false;
+
+        if(i==n-1 && j==m-1){
+            if(energy>0) return true;
         }
 
-        if (memo[i][j] != -1) {
-            return memo[i][j];
-        }
+        boolean down=isValid(i+1,j,energy,matrix,dp);
+        boolean right=isValid(i,j+1,energy,matrix,dp);
 
-        int minHealthFromNext = Integer.MAX_VALUE;
-
-        if (i + 1 < m) {
-            minHealthFromNext = Math.min(minHealthFromNext, solve(i + 1, j, dungeon, memo));
-        }
-
-        if (j + 1 < n) {
-            minHealthFromNext = Math.min(minHealthFromNext, solve(i, j + 1, dungeon, memo));
-        }
-
-        int healthNeeded = minHealthFromNext - dungeon[i][j];
-
-        memo[i][j] = healthNeeded <= 0 ? 1 : healthNeeded;
-
-        return memo[i][j];
+        return down || right;
     }
 }
