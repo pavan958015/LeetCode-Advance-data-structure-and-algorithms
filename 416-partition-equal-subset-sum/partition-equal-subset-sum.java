@@ -1,38 +1,33 @@
 class Solution {
+    int totalSum;
+    Boolean dp[][];
     public boolean canPartition(int[] nums) {
-        int sum=0;
-        for(int x:nums){
-            sum+=x;
-        }
-        if (sum % 2 != 0) return false;
-        return subsetProblem(nums,nums.length,sum/2); 
+        totalSum=0;
+        for(int n:nums)
+            totalSum+=n;
+        
+        if(totalSum%2!=0) return false;
+
+        dp=new Boolean[nums.length][totalSum/2+1];
+        return solve(0,nums,totalSum/2);
     }
-
-// gfg question     
-    public static boolean subsetProblem(int arr[], int n, int target) {
-        int dp[][] = new int[n + 1][target + 1];
-
-        for (int[] row : dp) {
-            Arrays.fill(row, -1);
+    private boolean solve(int idx,int[] nums,int target){
+        if(idx>=nums.length) return false;
+        if(idx==nums.length-1){
+            if(target-nums[idx]==0) return dp[idx][target]= true;
         }
-        return solve(arr, n, target, dp);
 
+        if(target==0) return true;
+
+        if(target<0) return false;
+
+        if(dp[idx][target]!=null) return dp[idx][target];
+
+
+        boolean take=false;
+             take= solve(idx+1,nums,target-nums[idx]);
+        boolean notTake=solve(idx+1,nums,target);
+
+        return dp[idx][target]=take || notTake;
     }
-
-    public static boolean solve(int arr[], int n, int target, int dp[][]) {
-        if (target == 0)
-            return true;
-        if (n <= 0)
-            return false;
-        if (target < 0)
-            return false;
-        if (dp[n][target] != -1) {
-            return dp[n - 1][target] == 1;
-        } else {
-            dp[n][target] = solve(arr, n - 1, target, dp) || solve(arr, n - 1, target -
-                    arr[n - 1], dp) ? 1 : 0;
-            return dp[n][target] == 1;
-        }
-    }
-
 }
