@@ -1,5 +1,6 @@
 class Solution {
     public boolean checkString(String s) {
+        /*
         Set<Character> set=new HashSet<>();
 
         boolean flag=true;
@@ -8,5 +9,8 @@ class Solution {
             if(ch=='a' && set.contains('b')) flag=false;
         }
         return flag;
+        */
+
+        return !s.contains("ba");
     }
 }
